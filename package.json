@@ -1,0 +1,23 @@
+{
+  "name": "challenge-automation-jla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonrla/challenge-automation-jla.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jasonrla/challenge-automation-jla/issues"
+  },
+  "homepage": "https://github.com/jasonrla/challenge-automation-jla#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.15"
+  }
+}
