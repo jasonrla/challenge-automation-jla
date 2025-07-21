@@ -4,10 +4,21 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        environment: [qa, cert]
+
+    environment: ${{ matrix.environment }}
+
+    env:
+      ENV: ${{ matrix.environment }}
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,13 +28,11 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests (qa env)
-        run: npm run test:qa
-      - name: Run Playwright tests (cert env)
-        run: npm run test:cert
+      - name: Run Playwright tests (${{ matrix.environment }} env)
+        run: npm run test:${{ matrix.environment }}
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.environment }}
           path: playwright-report/
           retention-days: 30
