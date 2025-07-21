@@ -1,11 +1,10 @@
 import * as XLSX from "xlsx";
-
-type ExcelRow = Record<string, string>;
+import { PokemonExcelRow } from "../models/pokemon-excel-row-model";
 
 export function readExcelFile(
   filePath: string,
   sheetName?: string
-): ExcelRow[] {
+): PokemonExcelRow[] {
   const workbook = XLSX.readFile(filePath);
 
   const targetSheetName = sheetName || workbook.SheetNames[0];
