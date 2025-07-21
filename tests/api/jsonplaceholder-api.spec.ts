@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { test as authTest, expect } from "../../fixtures/auth.fixture";
-import { test as contextTest } from "../../fixtures/context.fixture";
+import { test as contextTest } from "../../fixtures/api-context.fixture";
 import { mergeTests } from "@playwright/test";
 import { PostRequest, PostResponse } from "../../models/jsonplaceholder-model";
 
