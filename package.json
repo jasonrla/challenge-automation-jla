@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:qa": "ENV=qa npx playwright test",
+    "test:cert": "ENV=cert npx playwright test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jasonrla/challenge-automation-jla.git"
@@ -19,5 +22,9 @@
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "xlsx": "^0.18.5"
   }
 }
