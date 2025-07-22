@@ -1,13 +1,14 @@
 name: Playwright Tests
 on:
   push:
-    branches: [main, master]
+    branches:
+      - master
   pull_request:
-    branches: [main, master]
+    branches:
+      - master
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,21 +19,23 @@ jobs:
 
     env:
       ENV: ${{ matrix.environment }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      JSON_PLACEHOLDER_BASE_URL: ${{ vars.JSON_PLACEHOLDER_BASE_URL }}
+      POKEMON_EXCEL_PATH: ${{ vars.POKEMON_EXCEL_PATH }}
+      POKEMON_API_BASE_URL: ${{ vars.POKEMON_API_BASE_URL }}
+      POKEMON_WIKI_URL: ${{ vars.POKEMON_WIKI_URL }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 20
+
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests (${{ matrix.environment }} env)
+
+      - name: Run Playwright tests
         run: npm run test:${{ matrix.environment }}
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-${{ matrix.environment }}
-          path: playwright-report/
-          retention-days: 30
